@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "A user-owned to-do task with priority, optional due date, category, completion flag, and server timestamps.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the task owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "description": "Task title entered by the user.",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "priority": {
+          "type": "string",
+          "description": "Priority level of the task.",
+          "enum": ["Low", "Medium", "High"]
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Optional due date in YYYY-MM-DD format, or empty string when unset.",
+          "maxLength": 10,
+          "pattern": "^(\\d{4}-\\d{2}-\\d{2})?$"
+        },
+        "category": {
+          "type": "string",
+          "description": "Task category label.",
+          "enum": ["Work", "Personal", "Urgent", "Errands", "General"]
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the task is completed."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the task was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the task was last updated."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "priority",
+        "dueDate",
+        "category",
+        "completed",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "Stores personal tasks owned by authenticated users."
+    }
+  }
+}

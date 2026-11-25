@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taskline — Personal Task Manager</title>
+    <meta
+      name="description"
+      content="A responsive CRUD To-Do List web application with persistent localStorage, real-time search, filtering, sorting, inline editing, light/dark themes, and category productivity analytics."
+    />
+    <meta property="og:title" content="Taskline — Personal Task Manager" />
+    <meta
+      property="og:description"
+      content="A responsive CRUD To-Do List web application with persistent localStorage, real-time search, filtering, sorting, inline editing, light/dark themes, and category productivity analytics."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem('taskline_theme_v1');
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme =
+            savedTheme === 'dark' || savedTheme === 'light'
+              ? savedTheme
+              : prefersDark
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (_err) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
